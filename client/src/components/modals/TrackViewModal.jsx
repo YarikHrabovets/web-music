@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { faXmark, faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Badge from '../ui/Badge'
 import TrackPlayer from '../track/TrackPlayer'
+import TrackSimilar from '../track/TrackSimilar'
 
-function TrackViewModal({setIsViewOpen, data}) {
+function TrackViewModal({data, setTrackData, closeModal}) {
+    const [tags, setTags] = useState([])
+
+    useEffect(() => {
+        if (data?.musicinfo?.tags) {
+            Object.entries(data.musicinfo.tags).map(([tag, tagElems]) => (
+                tagElems.map(elem => (
+                    setTags(prev => [...prev, elem])
+                ))
+            ))
+        }
+    }, [data])
+
     return (
         <div className='overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full bg-black bg-opacity-35'>
             <div className='relative mx-auto p-4 w-full max-h-full'>
                 <div className='relative rounded-lg shadow-sm bg-custom-black'>
                     <div className='flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600'>
                         <h3 className='text-xl font-semibold'>Track View</h3>
-                        <button className='text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-800 hover:text-white' onClick={() => setIsViewOpen(false)}>
+                        <button className='text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-800 hover:text-white' onClick={() => closeModal()}>
                             <FontAwesomeIcon icon={faXmark} />
                         </button>
                     </div>
@@ -20,11 +33,7 @@ function TrackViewModal({setIsViewOpen, data}) {
                             <div className='w-1/3 flex-auto'>
                                 <img className='w-80 h-80 rounded-md' src={data.image} alt={'Image of ' + data.name} />
                                 <div className='flex flex-wrap min-w-full gap-1 mt-3 mb-3'>
-                                    {Object.entries(data.musicinfo.tags).map(([tag, tagElems]) => (
-                                        tagElems.map((elem, i) => (
-                                            <Badge key={`${tag}-${i}`} title={elem} color='indigo' />
-                                        ))
-                                    ))}
+                                    {tags.map((tag, i) => <Badge key={i} title={tag} color='indigo' /> )}
                                 </div>
                                 {
                                     data.audiodownload_allowed && 
@@ -42,6 +51,10 @@ function TrackViewModal({setIsViewOpen, data}) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className='border-t rounded-b border-gray-600 p-4 md:p-5'>
+                        <h3 className='text-xl font-semibold mb-5'>You may also like</h3>
+                        <TrackSimilar title={`${data.id}_similar`} tags={tags} onTrackClick={(newTrack) => setTrackData(newTrack)} />
                     </div>
                 </div>
             </div>

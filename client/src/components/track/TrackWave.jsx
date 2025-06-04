@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 function TrackWave({ rawPeaks, isPlaying, audioRef, barCount=64 }) {
+    if (!rawPeaks) {
+        return (
+            <></>
+        )
+    }
+
     const peaks = JSON.parse(rawPeaks).peaks
     const [barHeights, setBarHeights] = useState(new Array(barCount).fill(0))
 

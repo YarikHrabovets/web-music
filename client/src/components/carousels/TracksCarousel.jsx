@@ -8,12 +8,25 @@ import { getTracks } from '../../api/musicApi'
 import { Context } from '../../main'
 import TrackCard from './TrackCard'
 import Spinner from '../ui/Spinner'
+import TrackViewModal from '../modals/TrackViewModal'
 
 function TrackCarousel({limit, title, tags}) {
     const { music } = useContext(Context)
     const [offsetStart, setOffSetStart] = useState(0)
     const [direction, setDirection] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isViewOpen, setIsViewOpen] = useState(false)
+    const [trackData, setTrackData] = useState(null)
+
+    const openModal = (track) => {
+        setTrackData(track)
+        setIsViewOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsViewOpen(false)
+        setTrackData(null)
+    }
 
     const fetchTrack = (isForward) => {
         setDirection(isForward ? 'right' : 'left')
@@ -75,7 +88,7 @@ function TrackCarousel({limit, title, tags}) {
                                     className='flex justify-center gap-5'
                                 >
                                     {music.tracks.get(title).map(track => 
-                                        <TrackCard key={track.id} data={track} />
+                                        <TrackCard key={track.id} data={track} openModal={openModal} />
                                     )}
                                 </motion.div>
                             </AnimatePresence>
@@ -83,6 +96,7 @@ function TrackCarousel({limit, title, tags}) {
                     </div>
                 </div>
             </div>
+            {isViewOpen && <TrackViewModal data={trackData} setTrackData={setTrackData} closeModal={closeModal} />}
         </div>
     )
 }
