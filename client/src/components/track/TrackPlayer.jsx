@@ -55,7 +55,7 @@ function TrackPlayer({ src, peaks }) {
                 <span>{formatTime((progress / 100) * duration)}</span>
                 <input
                     type='range'
-                    value={progress}
+                    value={Number.isNaN(progress) ? 0 : progress}
                     onChange={onChange}
                     className='w-full appearance-none bg-custom-dark h-3 rounded-lg accent-custom-blue cursor-pointer'
                 />

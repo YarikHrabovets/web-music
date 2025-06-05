@@ -28,7 +28,6 @@ function TrackSimilar({title, tags, openModal}) {
 
     return (
         <div className='grid grid-cols-[repeat(auto-fit,_minmax(150px,_12rem))] justify-center gap-4'>
-            {console.log(tags)}
             {music.tracks.get(title).length === 0 ?
                 <h3 className='text-center text-xl font-bold'>Nothing to display</h3>
                 :
