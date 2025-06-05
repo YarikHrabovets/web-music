@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -24,4 +25,4 @@ function TrackCard({data, openModal}) {
     )
 }
 
-export default TrackCard
+export default observer(TrackCard)

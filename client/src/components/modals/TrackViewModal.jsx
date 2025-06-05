@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
 import { faXmark, faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Badge from '../ui/Badge'
 import TrackPlayer from '../track/TrackPlayer'
 import TrackSimilar from '../track/TrackSimilar'
 
-function TrackViewModal({data, setTrackData, closeModal}) {
+function TrackViewModal({data, openModal, closeModal}) {
     const [tags, setTags] = useState([])
 
     useEffect(() => {
@@ -54,7 +55,7 @@ function TrackViewModal({data, setTrackData, closeModal}) {
                     </div>
                     <div className='border-t rounded-b border-gray-600 p-4 md:p-5'>
                         <h3 className='text-xl font-semibold mb-5'>You may also like</h3>
-                        <TrackSimilar title={`${data.id}_similar`} tags={tags} onTrackClick={(newTrack) => setTrackData(newTrack)} />
+                        <TrackSimilar title={`${data.id}_similar`} tags={tags} openModal={openModal} />
                     </div>
                 </div>
             </div>
@@ -62,4 +63,4 @@ function TrackViewModal({data, setTrackData, closeModal}) {
     )
 }
 
-export default TrackViewModal
+export default observer(TrackViewModal)

@@ -96,7 +96,7 @@ function TrackCarousel({limit, title, tags}) {
                     </div>
                 </div>
             </div>
-            {isViewOpen && <TrackViewModal data={trackData} setTrackData={setTrackData} closeModal={closeModal} />}
+            {isViewOpen && <TrackViewModal data={trackData} openModal={openModal} closeModal={closeModal} />}
         </div>
     )
 }
