@@ -38,7 +38,7 @@ function TrackViewModal({data, openModal, closeModal}) {
                                 </div>
                                 {
                                     data.audiodownload_allowed && 
-                                    <a className='px-4 py-2 block w-full text-center cursor-pointer font-bold text-custom-pink border-custom-pink border-2 bg-custom-pink/35 rounded-full' href={data.audiodownload}>
+                                    <a className='px-4 py-2 block w-full text-center cursor-pointer font-bold text-custom-pink border-custom-pink border-2 bg-custom-pink/5 hover:bg-custom-pink/35 rounded-full' href={data.audiodownload}>
                                         Downdload <FontAwesomeIcon icon={faDownload} />
                                     </a>
                                 }

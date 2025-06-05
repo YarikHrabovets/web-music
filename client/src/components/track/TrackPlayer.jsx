@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay, faCirclePause, faForward, faBackward } from '@fortawesome/free-solid-svg-icons'
 import TrackWave from './TrackWave'
@@ -8,6 +8,12 @@ function TrackPlayer({ src, peaks }) {
     const [isPlaying, setIsPlaying] = useState(false)
     const [progress, setProgress] = useState(0)
     const [duration, setDuration] = useState(0)
+
+    useEffect(() => {
+        setIsPlaying(false)
+        setProgress(0)
+        setDuration(0)
+    }, [src, peaks])
 
     const togglePlay = () => {
         const audio = audioRef.current
