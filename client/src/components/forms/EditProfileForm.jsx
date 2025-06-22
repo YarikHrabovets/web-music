@@ -41,7 +41,7 @@ function EditProfileForm() {
             })
             .catch((error) => setFileError(error.response.data.message))
         }
-        setFormClass('hidden')
+        if (newUsername !== '' || file) setFormClass('hidden')
     }
 
     return (

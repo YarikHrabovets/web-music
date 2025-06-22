@@ -8,6 +8,15 @@ const User = sequelize.define('User', {
     avatar: {type: DataTypes.STRING}
 })
 
+const Track = sequelize.define('Track', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    trackId: {type: DataTypes.INTEGER, unique: true, allowNull: false}
+})
+
+User.hasMany(Track, {as: 'tracks', foreignKey: 'userId'})
+Track.belongsTo(User, {as: 'users', foreignKey: 'userId'})
+
 module.exports = {
-    User
+    User,
+    Track
 }

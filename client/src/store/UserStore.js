@@ -5,6 +5,7 @@ export default class UserStore {
     constructor() {
         this._isAuth = false
         this._user = {}
+        this._likes = {}
         makeAutoObservable(this)
     }
 
@@ -16,11 +17,19 @@ export default class UserStore {
         return this._user
     }
 
+    get likes() {
+        return this._likes
+    }
+
     setIsAuth(status) {
         this._isAuth = status
     }
 
     setUser(user) {
         this._user = user
+    }
+
+    setLikes(likes) {
+        this._likes = likes
     }
 }
